@@ -1,0 +1,10 @@
+{
+  "name": "Groq",
+  "version": "1.0.0",
+  "description": "Groq",
+  "services": [
+    "stream_chat",
+    "format_image_message",
+    "get_image_dimensions"
+  ]
+}
