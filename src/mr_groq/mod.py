@@ -103,5 +103,5 @@ async def get_service_models(context=None):
             ids.append(model.id)
         return { "stream_chat": ids }
     except Exception as e:
-        print('Error getting models (OpenAI):', e)
+        print('Error getting models (Groq):', e)
         return { "stream_chat": [] }
