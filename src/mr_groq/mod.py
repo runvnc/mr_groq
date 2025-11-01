@@ -4,6 +4,7 @@ import base64
 from io import BytesIO
 from openai import AsyncOpenAI
 import json
+import sys
 
 client = AsyncOpenAI(
     base_url="https://api.groq.com/openai/v1",
@@ -30,7 +31,7 @@ def concat_text_lists(message):
 async def stream_chat(model, messages=[], context=None, num_ctx=200000, 
                      temperature=0.0, max_tokens=150, num_gpu_layers=0):
     try:
-        print("DeepSeek stream_chat (OpenAI compatible mode)")
+        print("Groq stream_chat (OpenAI compatible mode)")
         max_tokens = 120
         model_name = os.environ.get("AH_OVERRIDE_LLM_MODEL", "llama-3.2-3b-preview")
         if model:
@@ -63,12 +64,13 @@ async def stream_chat(model, messages=[], context=None, num_ctx=200000,
                     #    #print('\033[93m' + str(chunk) + '\033[0m', end='')
                     print('\033[92m' + str(chunk.choices[0].delta.content) + '\033[0m', end='')
                 if chunk.choices[0].delta.content:
-                    yield chunk.choices[0].delta.content or ""
+                    if chunk.choices[0].delta.content is not None:
+                        yield chunk.choices[0].delta.content
 
         return content_stream(stream)
 
     except Exception as e:
-        print('DeepSeek (OpenAI mode) error:', e)
+        print('Groq (OpenAI mode) error:', e)
         #raise
 
 @service()
