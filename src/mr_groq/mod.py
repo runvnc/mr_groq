@@ -49,7 +49,6 @@ async def stream_chat(model, messages=[], context=None, num_ctx=200000,
 
         stream = await client.chat.completions.create(
             model=model_name,
-            #reasoning_effort="low",
             messages=messages,
             stream=True,
             temperature=temperature,
@@ -108,3 +107,4 @@ async def get_service_models(context=None):
     except Exception as e:
         print('Error getting models (Groq):', e)
         return { "stream_chat": [] }
+
