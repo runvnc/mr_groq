@@ -49,6 +49,7 @@ async def stream_chat(model, messages=[], context=None, num_ctx=200000,
 
         stream = await client.chat.completions.create(
             model=model_name,
+            reasoning_effort: "low",
             messages=messages,
             stream=True,
             temperature=temperature,
